@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel = "stylesheet" href = "reset.css">
+        <link rel = "stylesheet" href = "Codificador.css">
+        <title>Incriptador</title>
+    </head>
+    <body>
+        <header>
+            <img src = "Imagenes/encriptar.jpg" id = "logo">
+        </header>
+        <main>
+            <div class="container">
+                <div class = "izquierda">
+                    <div class = "text_area">
+                        <textarea id = "insercion" placeholder="Ingrese el texto aquí" pattern = /[a-z]/;></textarea>
+                        <label id = "alerta"><img src = "Imagenes/alert.png">   Solo codifica minusculas sin acentos ni caracteres especiales</label>
+                    </div>
+                    <div class = "separacion">
+                        <button id = "codificador">Codificar</button>
+                        <button id = "decodificador">Decodificar</button>
+                    </div>
+                </div>
+                
+                <div class = "derecha">
+                    <textarea readonly id = "resultado"></textarea>
+                    <div id = "imagen_div">
+                        <img id = "imagen" src = "imagenes/busqueda.jpeg">
+                        <textarea readonly id = "mensaje">No se ha encontrado ningun mensaje</textarea>
+                        <textarea readonly id = "sugerencia">Por favor ingrese el texto que desea encriptar o desencriptar</textarea>
+                    </div>
+                    <div class = "separacion">
+                        <button id = "copiar">Copiar</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+    </body>
+    <footer>
+    </footer>
+</html>
+
+<script>
+    //Declaracion de variables
+    //Division
+    var division_img = document.getElementById('imagen_div');
+    //TextArea
+    var input = document.getElementById('insercion');
+    var output = document.getElementById('resultado');
+    //Botones
+    var codificador = document.getElementById('codificador');
+    var decodificador = document.getElementById('decodificador');
+    var copia = document.getElementById('copiar');
+
+    const check = /[A-Z\áéíóú\ÁÉÍÓÚ\0-9]/;
+
+    function validar() {
+        if (check.test(input.value)) {
+            return false;
+        } else if (input.value == "") {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    //Funcion que acomoda el contenido de la pagina, segun su resolucion
+    function verificar(){
+        let width = screen.width;
+        let height = screen.height;
+        let imagen = document.getElementById('imagen');
+        let sec_derecha = document.getElementsByClassName('derecha');
+        let sec_izquierda = document.getElementsByClassName('izquierda');
+        let mensaje = document.getElementById('mensaje');
+        let sugerencia = document.getElementById('sugerencia');
+        if(width<1173){
+            sec_derecha[0].style.minWidth = "320px";
+            sec_derecha[0].style.marginTop = "50px";
+            sec_derecha[0].style.width = "80%";
+            sec_izquierda[0].style.width = "80%";
+            sec_izquierda[0].style.height = (height/2) + "px";
+            sec_derecha[0].style.height = (height/2) + "px";
+            copia.style.height = "20%";
+            imagen.style.display = "none";
+            mensaje.style.height = "30%";
+            mensaje.style.marginTop = "20%";
+            sugerencia.style.height = "30%";
+        }
+    }
+
+    //Funcion que separa el texto de entrada por letras
+    function separar(){
+        var cadena = [];
+        output.value = "";
+        for (var i = 0; i<input.value.length; i++) {
+            cadena.push(input.value.substring(i, i+1));
+        }
+        return cadena;
+    }
+
+    //Funcion que modifica algunos elementos de la pagina
+    function modificar(){
+        copia.style.visibility = "visible";
+        division_img.style.display = "none";
+        output.style.display = "block";
+    }
+
+    //Funcion que codifica el contenido ingresado
+    function codificar() {
+        if(validar()){
+            var cadena = separar();
+            for (var i = 0; i < cadena.length; i++) {
+                if(cadena[i] == "a"){
+                    output.value += "ai";
+                }else if(cadena[i]=="e"){
+                    output.value += "enter";
+                }else if(cadena[i]=="i"){
+                    output.value += "imes";
+                }else if(cadena[i]=="o"){
+                    output.value += "ober";
+                }else if(cadena[i]=="u"){
+                    output.value += "ufat";
+                }else{
+                    output.value += cadena[i];
+                }
+            }
+            modificar();
+        }else{
+            alert("El texto contiene caracteres no validos o esta vacio \n\nCorrija el texto");
+        }
+    }
+
+    //Funcion que decodifica el contenido ingresado
+    function decodificar() {
+        if(validar()){
+            var cadena = separar();
+            for (var i = 0; i < cadena.length; i++) {
+                if(cadena[i] == "a"){
+                    if(cadena[i+1]=="i"){
+                        output.value += "a";
+                        i++;
+                    }else{
+                        output.value += cadena[i];
+                    }
+                }else if(cadena[i]=="e"){
+                    if(cadena[i+1]=="n" && cadena[i+2]=="t" && cadena[i+3]=="e" && cadena[i+4]=="r"){
+                        output.value += "e";
+                        i += 4;
+                    }else{
+                        output.value += cadena[i];
+                    }
+                }else if(cadena[i]=="i"){
+                    if(cadena[i+1]=="m" && cadena[i+2]=="e" && cadena[i+3]=="s"){
+                        output.value += "i";
+                        i += 3;
+                    }else{
+                        output.value += cadena[i];
+                    }
+                }else if(cadena[i]=="o"){
+                    if(cadena[i+1]=="b" && cadena[i+2]=="e" && cadena[i+3]=="r"){
+                        output.value += "o";
+                        i += 3;
+                    }else{
+                        output.value += cadena[i];
+                    }
+                }else if(cadena[i]=="u"){
+                    if(cadena[i+1]=="f" && cadena[i+2]=="a" && cadena[i+3]=="t"){
+                        output.value += "u";
+                        i += 3;
+                    }else{
+                        output.value += cadena[i];
+                    }
+                }else{
+                    output.value += cadena[i];
+                }
+                modificar();
+            }
+        }else{
+            alert("El texto contiene caracteres no validos o esta vacio \n\nCorrija el texto");
+        }
+    }
+
+    //Funcion que copia el contenido del resultado en el computador
+    function copiar() {
+        let copyText = output;
+        copyText.select();
+        document.execCommand("copy");
+        alert("Copiado!");
+    }
+
+    //Llamado a funcion
+    verificar();
+    //Eventos
+    codificador.onclick = codificar;
+    decodificador.onclick = decodificar;
+    copia.onclick = copiar;
+</script>
