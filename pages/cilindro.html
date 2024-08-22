@@ -3,20 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel = "stylesheet" href = "./styles/reset.css">
-        <link rel = "stylesheet" href = "./styles/styles.css">
+        <link rel = "stylesheet" href = "../styles/reset.css">
+        <link rel = "stylesheet" href = "../styles/styles.css">
         <title>Encriptador</title>
     </head>
     <body>
         <header>
-            <img src = "./imagen/encriptar.jpg" id = "logo">
+            <img src = "../imagen/encriptar.jpg" id = "logo">
             <nav>
-                <li><a href="./pages/piglatin.html">Piglatin</a></li>
-                <li><a href="./pages/caesar.html">Caesar</a></li>
-                <li><a href="./pages/sigma.html">Sigma</a></li>
-                <li><a href="./pages/vigenere.html">Vigenere</a></li>
-                <li><a href="./pages/cilindro.html">Cilindro</a></li>
-                <li><a href="./pages/alamos.html">Alamos</a></li>
+                <li><a href="../index.html">Encriptador-Alura</a></li>
+                <li><a href="./piglatin.html">Piglatin</a></li>
+                <li><a href="./caesar.html">Caesar</a></li>
+                <li><a href="./sigma.html">Sigma</a></li>
+                <li><a href="./vigenere.html">Vigenere</a></li>
+                <li><a href="./alamos.html">Alamos</a></li>
             </nav>
         </header>
         <main>
@@ -24,7 +24,7 @@
                 <div class = "izquierda">
                     <div class = "text_area">
                         <textarea id = "insercion" placeholder="Ingrese el texto aquí" pattern = /[a-z]/;></textarea>
-                        <label id = "alerta"><img src = "./imagen/alert.png">   Solo codifica minusculas sin acentos ni caracteres especiales</label>
+                        <label id = "alerta"><img src = "../imagen/alert.png">   Solo codifica minusculas sin acentos ni caracteres especiales</label>
                     </div>
                     <div class = "separacion">
                         <button id = "codificador">Codificar</button>
@@ -35,7 +35,7 @@
                 <div class = "derecha">
                     <textarea readonly id = "resultado"></textarea>
                     <div id = "imagen_div">
-                        <img id = "imagen" src = "./imagen/busqueda.jpg">
+                        <img id = "imagen" src = "../imagen/busqueda.jpg">
                         <textarea readonly id = "mensaje">No se ha encontrado ningun mensaje</textarea>
                         <textarea readonly id = "sugerencia">Por favor ingrese el texto que desea encriptar o desencriptar</textarea>
                     </div>

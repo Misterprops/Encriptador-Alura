@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel = "stylesheet" href = "../styles/reset.css">
+        <link rel = "stylesheet" href = "../styles/styles.css">
+        <title>Encriptador</title>
+    </head>
+    <body>
+        <header>
+            <img src = "../imagen/encriptar.jpg" id = "logo">
+            <nav>
+                <li><a href="../index.html">Encriptador-Alura</a></li>
+                <li><a href="./piglatin.html">Piglatin</a></li>
+                <li><a href="./sigma.html">Sigma</a></li>
+                <li><a href="./vigenere.html">Vigenere</a></li>
+                <li><a href="./cilindro.html">Cilindro</a></li>
+                <li><a href="./alamos.html">Alamos</a></li>
+            </nav>
+        </header>
+        <main>
+            <div class="container">
+                <div class = "izquierda">
+                    <div class = "text_area">
+                        <textarea id = "insercion" placeholder="Ingrese el texto aquí" pattern = /[a-z]/;></textarea>
+                        <label id="label">Escriba la cantidad de desplazamientos</label>
+                        <input id="desplazamiento" placeholder="0" type="number"/>
+                    </div>
+                    <div class = "separacion">
+                        <button id = "codificador" onclick=codificar()>Codificar</button>
+                        <button id = "decodificador" onclick=decodificar()>Decodificar</button>
+                    </div>
+                </div>
+                
+                <div class = "derecha">
+                    <textarea readonly id = "resultado"></textarea>
+                    <div id = "imagen_div">
+                        <img id = "imagen" src = "../imagen/busqueda.jpg">
+                        <textarea readonly id = "mensaje">No se ha encontrado ningun mensaje</textarea>
+                        <textarea readonly id = "sugerencia">Por favor ingrese el texto que desea encriptar o desencriptar</textarea>
+                    </div>
+                    <div class = "separacion">
+                        <button id = "copiar" onclick=copiar()>Copiar</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+    </body>
+    <footer>
+    </footer>
+</html>
+<script src="../componentes/caesar.js"></script>
