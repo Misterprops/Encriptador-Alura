@@ -116,6 +116,31 @@ nav a{
     width: 100%;
 }
 
+#diccionario, #seed, #nonce, #round{
+    color: white;
+    background-color: transparent;
+    font-style: bold;
+    font-size: 16px;
+}
+
+#diccionario::placeholder, #seed::placeholder, #nonce::placeholder, #round::placeholder{
+    color: white;
+    font-style: bold;
+    font-size: 16px;
+}
+
+#banned{
+    color: white;
+    background-color: transparent;
+    font-size: 16px;
+    border: solid black;
+}
+
+#banned::placeholder{
+    color: white;
+    font-size: 16px;
+}
+
 #codificador{
     width: 44%;
     height: 35%;
@@ -227,4 +252,8 @@ footer{
     height: 100px;
     background: rgb(104,45,253);
     background: linear-gradient(0deg, rgba(104,45,253,1) 28%, rgba(34,195,107,1) 100%);
+}
+
+td{
+    border: solid;
 }

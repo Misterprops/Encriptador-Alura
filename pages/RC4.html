@@ -15,10 +15,10 @@
                 <li><a href="./piglatin.html">Piglatin</a></li>
                 <li><a href="./caesar.html">Caesar</a></li>
                 <li><a href="./sigma.html">Sigma</a></li>
+                <li><a href="./vigenere.html">Vigenere</a></li>
                 <li><a href="./escitala.html">Escitala</a></li>
                 <li><a href="./alamos.html">Alamos</a></li>
                 <li><a href="./salsa.html">Salsa - Chacha</a></li>
-                <li><a href="./RC4.html">RC4</a></li>
             </nav>
         </header>
         <main>
@@ -26,11 +26,13 @@
                 <div class = "izquierda">
                     <div class = "text_area">
                         <textarea id = "insercion" placeholder="Ingrese el texto aquí"></textarea>
-                        <input id="clave" placeholder="Palabra clave" type="text"/>
+                        <input id="diccionario" placeholder="Diccionario"/>
+                        <input id="seed" placeholder="Clave"/>
+                        <textarea id="banned" placeholder="Filtros"></textarea>
                     </div>
                     <div class = "separacion">
                         <button id = "codificador" onclick=codificar()>Codificar</button>
-                        <button id = "decodificador" onclick=decodificar()>Decodificar</button>
+                        <button id = "decodificador" onclick=decodificar()>Fuerza bruta</button>
                     </div>
                 </div>
                 
@@ -47,11 +49,12 @@
                     
                 </div>
             </div>
+            <div id="guia"></div>
         </main>
     </body>
     <footer>
     </footer>
 </html>
 
-<script src="../componentes/vigenere.js">
+<script src="../componentes/rc4.js">
 </script>
