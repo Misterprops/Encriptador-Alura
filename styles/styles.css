@@ -141,6 +141,11 @@ nav a{
     font-size: 16px;
 }
 
+#guia table td{
+    color: white;
+    border: solid black;
+}
+
 #codificador{
     width: 44%;
     height: 35%;
