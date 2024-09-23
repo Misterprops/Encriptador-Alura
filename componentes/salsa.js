@@ -104,28 +104,28 @@ function chacha() {
 }
 
 function tablon(paso) {
+    let row = document.createElement("tr");
+    let cell = document.createElement("td");
+    cell.colSpan = 4;
+    cell.innerText = "Paso No: " + paso;
+    row.appendChild(cell);
+    table.appendChild(row);
     for (let i = 0; i < todo.length; i += 4) {
         let content = document.createElement("tr");
         let cell1 = document.createElement("td");
         let cell2 = document.createElement("td");
         let cell3 = document.createElement("td");
         let cell4 = document.createElement("td");
-        cell1.textContent = todo[i];
-        cell2.textContent = todo[i + 1];
-        cell3.textContent = todo[i + 2];
-        cell4.textContent = todo[i + 3];
+        cell1.textContent = parseInt(todo[i], 2).toString(16);
+        cell2.textContent = parseInt(todo[i + 1], 2).toString(16);
+        cell3.textContent = parseInt(todo[i + 2], 2).toString(16);
+        cell4.textContent = parseInt(todo[i + 3], 2).toString(16);
         content.appendChild(cell1);
         content.appendChild(cell2);
         content.appendChild(cell3);
         content.appendChild(cell4);
         table.appendChild(content);
     }
-    let row = document.createElement("tr");
-    let cell = document.createElement("td");
-    cell.colSpan = 4;
-    cell.innerText = "Paso No: "+paso;
-    row.appendChild(cell);
-    table.appendChild(row);
     document.getElementById("guia").appendChild(table);
 }
 
@@ -137,7 +137,7 @@ function organizador(keys, nonce, base, posicion, type) {
             posicion[0], posicion[1], base[2], keys[4],
             keys[5], keys[6], keys[7], base[3]
         )
-    }else{
+    } else {
         todo.push(base[0], base[1], base[2], base[3],
             keys[0], keys[1], keys[2], keys[3],
             keys[4], keys[5], keys[6], keys[7],
@@ -149,7 +149,7 @@ function organizador(keys, nonce, base, posicion, type) {
 function cocinar(rondo, type) {
     if (type) {
         for (let i = 0; i < rondo; i++) {
-            if (i % 2 == 0) {
+            if (i % 2 != 0) {
                 salsas(0, 4, 8, 12);
                 salsas(5, 9, 13, 1);
                 salsas(10, 14, 2, 6);
@@ -161,11 +161,11 @@ function cocinar(rondo, type) {
                 salsas(10, 11, 8, 9);
                 salsas(15, 12, 13, 14);
             }
-            tablon(i);
+            tablon(i + 1);
         }
     } else {
         for (let i = 0; i < rondo; i++) {
-            if (i % 2 == 0) {
+            if (i % 2 != 0) {
                 chachas(0, 4, 8, 12);
                 chachas(1, 5, 9, 13);
                 chachas(2, 6, 10, 14);
@@ -177,20 +177,19 @@ function cocinar(rondo, type) {
                 chachas(2, 7, 8, 13);
                 chachas(3, 4, 9, 14);
             }
-            tablon(i);
+            tablon(i + 1);
         }
     }
 }
 
 function salsas(a, b, c, d) {
-    let band = (parseInt(todo[a], 2) +
-        parseInt(todo[d], 2) % 256
+    let band = ((parseInt(todo[a], 2) +
+        parseInt(todo[d], 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (band.length < 32) {
         band = "0" + band;
     }
     band = (band + "0000000").substring(7);
-
     let resb = "";
     for (let i = 0; i < band.length; i++) {
         if (todo[b][i] == band[i]) {
@@ -200,8 +199,8 @@ function salsas(a, b, c, d) {
         }
     }
 
-    band = (parseInt(todo[a], 2) +
-        parseInt(resb, 2) % 256
+    band = ((parseInt(todo[a], 2) +
+        parseInt(resb, 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (band.length < 32) {
         band = "0" + band;
@@ -217,8 +216,8 @@ function salsas(a, b, c, d) {
         }
     }
 
-    band = (parseInt(resc, 2) +
-        parseInt(resb, 2) % 256
+    band = ((parseInt(resc, 2) +
+        parseInt(resb, 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (band.length < 32) {
         band = "0" + band;
@@ -234,8 +233,8 @@ function salsas(a, b, c, d) {
         }
     }
 
-    band = (parseInt(resc, 2) +
-        parseInt(resd, 2) % 256
+    band = ((parseInt(resc, 2) +
+        parseInt(resd, 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (band.length < 32) {
         band = "0" + band;
@@ -257,14 +256,15 @@ function salsas(a, b, c, d) {
 }
 
 function chachas(a, b, c, d) {
-    let resa = (parseInt(todo[a], 2) +
-        parseInt(todo[b], 2) % 256
+    let resa = ((parseInt(todo[a], 2) +
+        parseInt(todo[b], 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (resa.length < 32) {
         resa = "0" + resa;
     }
 
     let resd = "";
+    
     for (let i = 0; i < resa.length; i++) {
         if (resa[i] == todo[d][i]) {
             resd += "0";
@@ -272,10 +272,11 @@ function chachas(a, b, c, d) {
             resd += "1";
         }
     }
+    
     resd = (resd + "0000000000000000").substring(16);
-
-    let resc = (parseInt(todo[c], 2) +
-        parseInt(resd, 2) % 256
+    
+    let resc = ((parseInt(todo[c], 2) +
+        parseInt(resd, 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (resc.length < 32) {
         resc = "0" + resc;
@@ -289,10 +290,12 @@ function chachas(a, b, c, d) {
             resb += "1";
         }
     }
+    console.log(resb)
     resb = (resb + "000000000000").substring(12);
+    console.log(resb)
 
-    resa = (parseInt(resa, 2) +
-        parseInt(resb, 2) % 256
+    resa = ((parseInt(resa, 2) +
+        parseInt(resb, 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (resa.length < 32) {
         resa = "0" + resa;
@@ -308,8 +311,8 @@ function chachas(a, b, c, d) {
     }
     resd = (band + "00000000").substring(8);
 
-    resc = (parseInt(resc, 2) +
-        parseInt(resd, 2) % 256
+    resc = ((parseInt(resc, 2) +
+        parseInt(resd, 2)) % parseInt("11111111111111111111111111111111",2)
     ).toString(2);
     while (resc.length < 32) {
         resc = "0" + resc;
@@ -335,7 +338,6 @@ function respuesta(indicativo) {
     while (plaintxt.length % 64 != 0) {
         plaintxt += " ";
     }
-
     let texto = textToBin(plaintxt);
     let resp = [];
     for (let k = 0; k < texto.length; k += 16) {
@@ -346,11 +348,8 @@ function respuesta(indicativo) {
         }
         indicativo ? todo[8] = textToBin(band.substring(0, 4))[0] : todo[12] = textToBin(band.substring(0, 4))[0];
         indicativo ? todo[9] = textToBin(band.substring(4))[0] : todo[13] = textToBin(band.substring(4))[0];
-
-
         for (let i = 0; i < todo.length; i++) {
-
-            res = "";
+            let res = "";
             for (let j = 0; j < cuadros[i].length; j++) {
                 if (todo[i][j] == cuadros[i][j]) {
                     res += "0";
@@ -361,7 +360,11 @@ function respuesta(indicativo) {
             resp.push(res);
         }
     }
-    document.getElementById("resultado").value = binToText(resp);
+    document.getElementById("resultado").value = "Nonce: \n" + (indicativo ? parseInt(todo[6], 2).toString(16) : parseInt(todo[14], 2).toString(16)) + (indicativo ? parseInt(todo[7], 2).toString(16) : parseInt(todo[15], 2).toString(16));
+    document.getElementById("resultado").value += "\nResultado: \n" + binToText(resp);
+    document.getElementById("resultado").value += "\nPalabra cifrante: \n" + binToText(todo);
+    //habilitar para que funciones la comprobacion
+    //document.getElementById("resultado").value = binToText(resp);
 }
 
 /*function veritas(indicativo) {
@@ -390,7 +393,7 @@ function respuesta(indicativo) {
             resp.push(res);
         }
     }
-    document.getElementById("resultado").value += "//////" + binToText(resp);
+    document.getElementById("resultado").value += "\nComprobacion: " + binToText(resp);
 }*/
 
 

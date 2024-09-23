@@ -42,6 +42,7 @@ function codificar() {
             }
             keyBin += band;
         }
+        document.getElementById("resultado").value = "KeyStream: "+keyBin;
         //XOR texto y palabra cifrante
         let rest = "";
         for (let i = 0; i < textoBin.length; i++) {
@@ -51,13 +52,14 @@ function codificar() {
                 rest += 1;
             }
         }
+        document.getElementById("resultado").value += "\nResultado Binario: "+rest;
         //Binario a texto
         let tt = "";
         for (let i = 0; i < rest.length; i += 8) {
             let band = rest[i] + rest[i + 1] + rest[i + 2] + rest[i + 3] + rest[i + 4] + rest[i + 5] + rest[i + 6] + rest[i + 7];
             tt += String.fromCharCode(parseInt(band, 2));
         }
-        document.getElementById("resultado").value = tt;
+        document.getElementById("resultado").value += "\nResultado: "+tt;
     } else {
         //RC4 con diccionario
         for (let i = 0; i < input.length; i++) {
@@ -99,18 +101,17 @@ function codificar() {
         let keyBin = "";
         for (let i = 0; i < input.length; i++) {
             let band = mandatory.indexOf(input[i].toUpperCase()).toString(2);
-            while (band.length < 8) {
+            while (band.length < (mandatory.length.toString(2).length)-1) {
                 band = "0" + band;
             }
-            console.log("plain" + band);
             textoBin += band;
             band = res[i % S.length].toString(2);
-            while (band.length < 8) {
+            while (band.length < (mandatory.length.toString(2).length)-1) {
                 band = "0" + band;
             }
-            console.log("key" + band);
             keyBin += band;
         }
+        //document.getElementById("resultado").value = "KeyStream: "+keyBin;
         //XOR de texto y palabra cifrante
         let rest = "";
         for (let i = 0; i < textoBin.length; i++) {
@@ -120,10 +121,14 @@ function codificar() {
                 rest += 1;
             }
         }
+        //document.getElementById("resultado").value += "\nResultado Binario: "+rest;
         //Binario a texto
         let tt = "";
-        for (let i = 0; i < rest.length; i += 8) {
-            let band = rest[i] + rest[i + 1] + rest[i + 2] + rest[i + 3] + rest[i + 4] + rest[i + 5] + rest[i + 6] + rest[i + 7];
+        for (let i = 0; i < rest.length; i += (mandatory.length.toString(2).length)-1) {
+            let band = "";
+            for (let j = i; j < ((mandatory.length.toString(2).length)-1)+(i); j++) {
+                band += rest[j];
+            }
             tt += mandatory[parseInt(band, 2)];
         }
         document.getElementById("resultado").value = tt;
@@ -133,7 +138,7 @@ function codificar() {
     modificar();
 }
 
-function decodificar() {
+function fuerzaB() {
     //Ataque de fuerza bruta para codigo de 4 letras
     document.getElementById("guia").innerHTML = "";
     let ban = document.getElementById("banned").value.split(",");
@@ -232,16 +237,14 @@ function decode(key) {
     let keyBin = "";
     for (let i = 0; i < input.length; i++) {
         let band = mandatory.indexOf(input[i]).toString(2);
-        while (band.length < 8) {
+        while (band.length < (mandatory.length.toString(2).length)-1) {
             band = "0" + band;
         }
-        console.log("res" + band);
         textoBin += band;
         band = res[i % S.length].toString(2);
-        while (band.length < 8) {
+        while (band.length < (mandatory.length.toString(2).length)-1) {
             band = "0" + band;
         }
-        console.log("key" + band);
         keyBin += band;
     }
     //XOR texto palabra cifrante
@@ -255,10 +258,13 @@ function decode(key) {
     }
     //Binario a texto
     let tt = "";
-    for (let i = 0; i < rest.length; i += 8) {
-        let band = rest[i] + rest[i + 1] + rest[i + 2] + rest[i + 3] + rest[i + 4] + rest[i + 5] + rest[i + 6] + rest[i + 7];
-        tt += mandatory[parseInt(band, 2)];
-    }
+        for (let i = 0; i < rest.length; i += (mandatory.length.toString(2).length)-1) {
+            let band = "";
+            for (let j = i; j < ((mandatory.length.toString(2).length)-1)+(i); j++) {
+                band += rest[j];
+            }
+            tt += mandatory[parseInt(band, 2)];
+        }
     return tt;
 }
 
